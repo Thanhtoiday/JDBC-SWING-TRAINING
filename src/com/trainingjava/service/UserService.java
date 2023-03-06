@@ -14,6 +14,7 @@ import java.sql.*;
  */
 public class UserService {
     private UserDao userDao;
+    
     public UserService(){
         userDao = new UserDao();
     }
@@ -24,5 +25,25 @@ public class UserService {
     
     public void addUser(User user){
         userDao.addUser(user);
+    }
+    
+    public void deleteUser(int id){
+        userDao.deleteUser(id);
+    }
+    
+    public User getUserbyID(int id){
+        return userDao.getUserbyID(id);
+    }
+    
+    public void UpdateUser(User user){
+        userDao.UpdateUser(user);
+    }
+    
+//    public int checkLogIn(String userString, String passowrdString){
+//        return userDao.checkLogIn(userString, passowrdString);
+//    }
+    
+    public int checkLogin(String userString , String passowrdString){
+        return userDao.checkLogin(userString, passowrdString);
     }
 }

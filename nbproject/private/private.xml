@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/JDBC+SWING/src/com/trainingjava/view/AddUserFrame.java</file>
-            <file>file:/E:/JDBC+SWING/src/com/trainjava/dao/JDBCConnection.java</file>
+            <file>file:/E:/JDBC+SWING/src/com/trainingjava/view/EditUserFrame.java</file>
             <file>file:/E:/JDBC+SWING/src/com/trainingjava/view/ListUserFrame.java</file>
-            <file>file:/E:/JDBC+SWING/src/com/trainingjava/model/User.java</file>
+            <file>file:/E:/JDBC+SWING/src/com/trainingjava/view/LogInFrame.java</file>
             <file>file:/E:/JDBC+SWING/src/com/trainjava/dao/UserDao.java</file>
             <file>file:/E:/JDBC+SWING/src/com/trainingjava/service/UserService.java</file>
         </group>

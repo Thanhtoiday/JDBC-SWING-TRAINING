@@ -11,16 +11,49 @@ import com.trainingjava.service.UserService;
  *
  * @author DELL
  */
-public class AddUserFrame extends javax.swing.JFrame {
+public class EditUserFrame extends javax.swing.JFrame {
+    private User user;
     UserService userService;
-    User user;
     /**
-     * Creates new form AddUserFrame
+     * Creates new form EditUserFrame
      */
-    public AddUserFrame() {
+    public EditUserFrame(int Userid) {
         initComponents();
         user = new User();
         userService = new UserService();
+        user = userService.getUserbyID(Userid);
+        
+        
+        IDTextField.setText(String.valueOf(user.getId()));
+        NameTextField.setText(user.getName());
+        PhoneTextField.setText(user.getPhone());
+        UsernameTextField.setText(user.getUsername());
+        PasswordField.setText(user.getPassword());
+        AboutTextArea.setText(user.getAbout());
+        
+        String favourite = user.getFavourite();
+        if(favourite != null){
+            String[] favs = favourite.split(",");
+            for(String f : favs){
+                if(f.equals("Music")){
+                    CheckBoxMusic.setSelected(true);
+                }
+                if(f.equals("Xem phim")){
+                    CheckBoxFIlm.setSelected(true);
+                }
+            }
+        }
+        
+        String role = user.getRole();
+        if(role != null){
+            if(role.equals("ADMIN")){
+                AdminRadioButton.setSelected(true);
+            }
+            if(role.equals("USER")){
+                UserRadioButton.setSelected(true);
+            }
+        }
+        
     }
 
     /**
@@ -33,53 +66,38 @@ public class AddUserFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         NameTextField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        AboutTextArea = new javax.swing.JTextArea();
         PhoneTextField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        AdminRadioButton = new javax.swing.JRadioButton();
         jLabel5 = new javax.swing.JLabel();
+        UserRadioButton = new javax.swing.JRadioButton();
         jLabel6 = new javax.swing.JLabel();
+        BackButton = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        SubmitButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         UsernameTextField = new javax.swing.JTextField();
         PasswordField = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         CheckBoxMusic = new javax.swing.JCheckBox();
+        jLabel3 = new javax.swing.JLabel();
         CheckBoxFIlm = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        AboutTextArea = new javax.swing.JTextArea();
-        AdminRadioButton = new javax.swing.JRadioButton();
-        UserRadioButton = new javax.swing.JRadioButton();
-        BackButton = new javax.swing.JButton();
-        SubmitButton = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        IDTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel1.setText("Them Moi User");
-
-        jLabel2.setText("Ten");
-
-        jLabel3.setText("So DT");
-
-        jLabel4.setText("Tai Khoan");
-
-        jLabel5.setText("Mat Khau");
-
-        jLabel6.setText("So thich");
-
-        jLabel7.setText("Vai Tro");
-
-        jLabel8.setText("Gioi Thieu");
-
-        CheckBoxMusic.setText("Nghe nhac");
-
-        CheckBoxFIlm.setText("Xem phim");
 
         AboutTextArea.setColumns(20);
         AboutTextArea.setRows(5);
         jScrollPane1.setViewportView(AboutTextArea);
 
+        jLabel4.setText("Tai Khoan");
+
+        buttonGroup1.add(AdminRadioButton);
         AdminRadioButton.setText("Admin");
         AdminRadioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -87,6 +105,9 @@ public class AddUserFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Mat Khau");
+
+        buttonGroup1.add(UserRadioButton);
         UserRadioButton.setSelected(true);
         UserRadioButton.setText("User");
         UserRadioButton.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +116,8 @@ public class AddUserFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setText("So thich");
+
         BackButton.setText("Back");
         BackButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,74 +125,95 @@ public class AddUserFrame extends javax.swing.JFrame {
             }
         });
 
-        SubmitButton.setText("Tao nguoi dung");
+        jLabel7.setText("Vai Tro");
+
+        SubmitButton.setText("Sua nguoi dung");
         SubmitButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SubmitButtonActionPerformed(evt);
             }
         });
 
+        jLabel8.setText("Gioi Thieu");
+
+        jLabel1.setText("Sua User");
+
+        jLabel2.setText("Ten");
+
+        CheckBoxMusic.setText("Nghe nhac");
+
+        jLabel3.setText("So DT");
+
+        CheckBoxFIlm.setText("Xem phim");
+
+        jLabel9.setText("ID");
+
+        IDTextField.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(231, 231, 231)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(BackButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(UsernameTextField)
-                                    .addComponent(PasswordField)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(CheckBoxMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(AdminRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(0, 105, Short.MAX_VALUE)
-                                                .addComponent(CheckBoxFIlm, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(UserRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(0, 0, Short.MAX_VALUE))))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(PhoneTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(104, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(SubmitButton)
-                .addGap(204, 204, 204))
+                .addContainerGap(114, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(UsernameTextField)
+                                .addComponent(PasswordField)
+                                .addComponent(jScrollPane1)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(CheckBoxMusic, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(AdminRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(0, 105, Short.MAX_VALUE)
+                                            .addComponent(CheckBoxFIlm, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(UserRadioButton, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(0, 0, Short.MAX_VALUE))))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(42, 42, 42)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(NameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                                .addComponent(PhoneTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                                .addComponent(IDTextField))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(SubmitButton)
+                        .addGap(106, 106, 106))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(59, 59, 59)
+                        .addComponent(BackButton)))
+                .addGap(112, 112, 112))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(52, 52, 52)
+                .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(BackButton))
+                    .addComponent(BackButton)
+                    .addComponent(jLabel1))
                 .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(IDTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(NameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,31 +243,31 @@ public class AddUserFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addGap(31, 31, 31)
                 .addComponent(SubmitButton)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UserRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserRadioButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserRadioButtonActionPerformed
-
     private void AdminRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminRadioButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_AdminRadioButtonActionPerformed
 
+    private void UserRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserRadioButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserRadioButtonActionPerformed
+
     private void BackButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackButtonActionPerformed
-       
+
         new ListUserFrame().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BackButtonActionPerformed
 
     private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-        
-        user.setName(NameTextField.getText());
+
+         user.setName(NameTextField.getText());
         user.setPhone(PhoneTextField.getText());
         user.setUsername(UsernameTextField.getText());
         user.setPassword(String.valueOf(PasswordField.getPassword()));
@@ -248,18 +292,16 @@ public class AddUserFrame extends javax.swing.JFrame {
         }
         user.setRole(role);
         
-        userService.addUser(user);
+        userService.UpdateUser(user);
         
         new ListUserFrame().setVisible(true);
         this.dispose();
-        
     }//GEN-LAST:event_SubmitButtonActionPerformed
-    
-    
+
     /**
      * @param args the command line arguments
      */
-   
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea AboutTextArea;
@@ -267,6 +309,7 @@ public class AddUserFrame extends javax.swing.JFrame {
     private javax.swing.JButton BackButton;
     private javax.swing.JCheckBox CheckBoxFIlm;
     private javax.swing.JCheckBox CheckBoxMusic;
+    private javax.swing.JTextField IDTextField;
     private javax.swing.JTextField NameTextField;
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JTextField PhoneTextField;
@@ -282,6 +325,7 @@ public class AddUserFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
